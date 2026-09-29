@@ -1,0 +1,47 @@
+---
+import { levels, u, pad, assistKind } from '../lib/site';
+const { current = '' } = Astro.props as { current?: string };
+const norm = (p: string) => p.replace(/\/?$/, '/');
+const here = norm(current);
+const is = (href: string) => (norm(href) === here ? 'page' : undefined);
+---
+<nav class="sidebar" id="sidebar" aria-label="Levels">
+  <button class="icon-btn drawer-close" type="button" aria-label="Close level list" data-drawer-close>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18" /></svg>
+  </button>
+
+  <div class="side-group">
+    <span class="kicker">Levels</span>
+    <ol class="side-list">
+      {levels.map((l) => (
+        <li>
+          <a class="side-link" href={l.url} aria-current={is(l.url)}>
+            <span class="side-num">L{pad(l.level)}</span>
+            <span>
+              {l.title}
+              <span class="side-sub"><span class:list={['side-dot', assistKind(l)]} aria-hidden="true"></span>{l.category}</span>
+            </span>
+          </a>
+          {l.workings && (
+            <div class="side-child">
+              <a href={u(l.workings)} aria-current={is(u(l.workings))}>Workings</a>
+            </div>
+          )}
+        </li>
+      ))}
+    </ol>
+    <div class="side-legend">
+      <span><span class="side-dot ai" aria-hidden="true"></span>AI-assisted solve</span>
+      <span><span class="side-dot human" aria-hidden="true"></span>Human-led, AI as tooling</span>
+    </div>
+  </div>
+
+  <div class="side-group">
+    <span class="kicker">Reference</span>
+    <ul class="side-list">
+      <li><a class="side-link" href={u('')} aria-current={is(u(''))}><span class="side-num">·</span><span>Overview</span></a></li>
+      <li><a class="side-link" href={u('concepts/')} aria-current={is(u('concepts/'))}><span class="side-num">·</span><span>Concepts glossary</span></a></li>
+      <li><a class="side-link" href={u('about/')} aria-current={is(u('about/'))}><span class="side-num">·</span><span>About &amp; AI use</span></a></li>
+    </ul>
+  </div>
+</nav>

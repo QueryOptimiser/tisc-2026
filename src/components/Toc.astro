@@ -1,0 +1,29 @@
+---
+interface Heading { depth: number; slug: string; text: string }
+const { headings = [], variant = 'rail' } = Astro.props as { headings?: Heading[]; variant?: 'rail' | 'inline' };
+const items = headings.filter((h) => h.depth === 2 || h.depth === 3);
+---
+{items.length > 0 && (
+  variant === 'rail' ? (
+    <aside class="toc-rail" aria-label="On this page">
+      <span class="kicker">On this page</span>
+      <ol class="toc-list" data-toc>
+        {items.map((h) => (
+          <li><a class={`depth-${h.depth}`} href={`#${h.slug}`}>{h.text}</a></li>
+        ))}
+      </ol>
+      <div class="toc-actions">
+        <a href="#content">Back to top ↑</a>
+      </div>
+    </aside>
+  ) : (
+    <details class="toc-inline">
+      <summary>On this page</summary>
+      <ol class="toc-list">
+        {items.map((h) => (
+          <li><a class={`depth-${h.depth}`} href={`#${h.slug}`}>{h.text}</a></li>
+        ))}
+      </ol>
+    </details>
+  )
+)}

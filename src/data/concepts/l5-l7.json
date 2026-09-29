@@ -1,0 +1,41 @@
+[
+  { "id": "host-header-gating", "term": "Host-header gating", "group": "Web",
+    "short": "A server that only routes its real endpoints when the request's HTTP Host header matches a specific expected hostname.",
+    "long": "The Host header tells a server which site a request is for. Here the service returns generic 404s to everything until the header claims to be a specific hostname, at which point the real handlers wake up. It hides a whole service behind a value most scanners never think to set." },
+
+  { "id": "trash-bytes", "term": "Trash bytes", "group": "Forensics",
+    "short": "The bytes after a string's terminator that the game never uses, holding leftovers or fill, used here as a covert channel.",
+    "long": "When a fixed-size field holds a short string, the bytes after the terminator aren't used by the game. In real saves they hold leftovers or a fill pattern. That unused space is a quirk the retro game-hacking community has long used to smuggle data, and this challenge planted meaning there instead of noise." },
+
+  { "id": "lcg-keystream", "term": "LCG keystream", "group": "Crypto",
+    "short": "Cheap ciphers that XOR or shuffle data using a generator seeded from the payload's own checksum.",
+    "long": "A linear congruential generator produces a sequence with seed*a+c mod m. Trash Talk uses two: a Gen 4 GTS request is XORed byte by byte with a keystream (a*0x45 + 0x1111 mod 2^31) seeded from the request checksum, and each Pokemon blob is scrambled with the games' own LCRNG (0x41C64E6D, 0x6073) seeded from its 16-bit checksum, its four data blocks reordered by the PID. Reconstruct the constants and each unwinds cleanly." },
+
+  { "id": "challenge-response", "term": "Challenge-response handshake", "group": "Crypto",
+    "short": "A server issues a fresh token and only proceeds once the client returns a value tied to that exact token.",
+    "long": "Instead of a fixed password, the server hands out a one-time value and requires the client to answer with something derived from it. In the GTS case the salt is a fixed constant shipped on every cartridge, so this isn't strong authentication; it just forces you to fetch a fresh token rather than replay an old blob verbatim. The pattern appears twice here, as a token-plus-hash request and as an execute-only helper that wants its random token echoed back, where the token is genuinely unpredictable." },
+
+  { "id": "decoy-discipline", "term": "Decoy discipline", "group": "Method",
+    "short": "Doubting any flag-shaped string a tool just prints back at you until the protected mechanism actually produces it.",
+    "long": "Challenges plant flag-shaped strings in binaries, output and hints to catch skimming. The habit that keeps you honest is to doubt a flag read straight out of static analysis and wait for the intended mechanism to produce the real one; sometimes, as in Provenance, the decoy even names itself. Write every decoy down and keep it, so you never waste a real attempt resubmitting one." },
+
+  { "id": "rich-header", "term": "PE Rich header", "group": "Reverse engineering",
+    "short": "An undocumented block in Windows executables that records which MSVC tool builds produced the object files.",
+    "long": "Microsoft's linker inserts a hidden block between the DOS stub and the PE header, listing which tool builds produced the object files, each with a count. It is XOR-masked with an additive checksum computed over the header bytes. Malware analysts and supply-chain audits use it to fingerprint a binary's true build toolchain, so a forged Rich header is exactly the kind of lie a provenance check hunts for." },
+
+  { "id": "linker-version", "term": "PE linker version", "group": "Reverse engineering",
+    "short": "The MajorLinkerVersion/MinorLinkerVersion bytes in a PE optional header, naming the linker that produced the file.",
+    "long": "A documented two-byte field in the PE optional header states which linker version built the executable, e.g. 14.10 for VS2017 or 14.44 for a VS2022 toolset. It is a second, independent witness to the file's provenance alongside the Rich header. A real check wants both to agree with each other and to match what the code actually looks like." },
+
+  { "id": "toctou-race", "term": "TOCTOU race", "group": "Pwn",
+    "short": "A time-of-check to time-of-use gap: a permission is verified, then acted on later against state that changed in between.",
+    "long": "A system checks that something is allowed, but a delay before it acts leaves a window where the underlying state can change without the check being redone. Land a request in that window and a now-invalid permission slips through. It is a well-known, still-current privilege-escalation bug class in real operating systems and cloud infrastructure." },
+
+  { "id": "capability-lease", "term": "Capability lease and revocation", "group": "Pwn",
+    "short": "Short-lived permission slips: each privileged operation needs its own named lease, and leases can be granted or revoked.",
+    "long": "Rather than one broad session right, the service issues a separate short-lived lease for each named capability, and an operation checks for the exact matching lease. Revocation is a distinct operation. The gap between a worker caching a lease and honouring its revocation is what the race here exploits." },
+
+  { "id": "so-injection", "term": "Shared-object injection", "group": "Pwn",
+    "short": "Getting the target to load and run an attacker-supplied .so, so an exported function executes inside the target's process.",
+    "long": "If a service can be made to load a shared object and call one of its exported functions, that function runs with the service's own privileges and inside its container. The payload has to be a genuinely well-formed ELF that passes the loader's validation, then it can fork, exec other programs, and act as a foothold rather than smuggling anything out directly." }
+]

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "pdf-redaction-failure",
+    "term": "Cosmetic PDF redaction",
+    "group": "Forensics",
+    "short": "A black rectangle drawn over text hides it on screen, but the text is still there in the file's text layer.",
+    "long": "A PDF's visible page is a set of rendering instructions, and the text lives in a separate layer underneath. Drawing a filled black shape on top hides the words on screen without deleting or flattening them, so any tool that reads the text layer directly gets everything back. Proper redaction removes the underlying objects or flattens the page to an image. Law firms, courts and government agencies have all leaked information through this exact mistake."
+  },
+  {
+    "id": "base64-encoding",
+    "term": "Base64",
+    "group": "Method",
+    "short": "A way of writing any bytes as a run of printable ASCII characters.",
+    "long": "Base64 maps every three bytes onto four printable characters, so binary data can travel inside text that only allows plain characters. There's no key, so anyone can decode it. A trailing '=' or '==' is padding. A long run of letters, digits, '+' and '/' ending in '=' is a good hint to try decoding it."
+  },
+  {
+    "id": "machine-identification-code",
+    "term": "Machine Identification Code",
+    "group": "Forensics",
+    "short": "A faint yellow dot pattern that most colour laser printers add to every page, encoding the serial number and a timestamp.",
+    "long": "Colour laser printers and copiers print a near-invisible grid of pale yellow dots on every page, encoding the device serial number and a print timestamp so a document can be traced. The usual reading is whether or not there's a dot at each lattice point. It matters for anonymity and whistleblower safety, and it's the natural first guess when a puzzle hides data in a dot grid, though that guess can be wrong."
+  },
+  {
+    "id": "crib-dragging",
+    "term": "Known-plaintext crib drag",
+    "group": "Crypto",
+    "short": "Slide a guessed piece of plaintext along the ciphertext until one position gives a consistent key.",
+    "long": "If you expect the plaintext to contain a known fragment (a crib), you slide it across every position of the encoded stream. At each offset you work out the key or mapping the crib would imply, and throw the offset out if that mapping contradicts itself. Usually only one offset survives, which tells you where the message is and gives you the key in one go. It still works when most of the payload is random filler and statistics have given up."
+  },
+  {
+    "id": "passive-osint",
+    "term": "Passive OSINT",
+    "group": "Method",
+    "short": "Piecing together someone's public footprint from open sources without ever contacting or interacting with them.",
+    "long": "Passive open-source intelligence means collecting only public traces such as archives, cached pages, profiles and images, with no messages, form submissions, follows or purchases that would touch the subject. Most of the work is checking rather than eyeballing. You read where a link actually points instead of its visible text, and you sample real pixel values instead of trusting how a thumbnail looks."
+  },
+  {
+    "id": "png-trailing-data",
+    "term": "Data appended after IEND",
+    "group": "Forensics",
+    "short": "Bytes added after a PNG's IEND marker are ignored by image viewers but are still in the file.",
+    "long": "A PNG ends at its IEND chunk, and decoders stop reading there. That makes the end of the file an easy hiding place. You can append a payload, or even a whole second PNG, and the image still displays normally with the extra bytes along for the ride. Reading the raw file past IEND, instead of the decoded image, gets them back."
+  },
+  {
+    "id": "parser-differential",
+    "term": "Parser differential",
+    "group": "Web",
+    "short": "Two components read the same input differently, so a payload that passes the validator can do something else in the executor.",
+    "long": "A parser differential is a gap between two parts of a system that are each supposed to read the same data the same way. If a security check parses input one way and the component that acts on it parses it another, an attacker can build input that looks safe to the checker and does something else when it runs. HTTP request smuggling and several antivirus bypasses come from this kind of bug. In Level 3, two sections with the same name let the validator inspect the first while the executor ran the last."
+  },
+  {
+    "id": "wasm-custom-section",
+    "term": "WASM custom section",
+    "group": "Reverse engineering",
+    "short": "A named, free-form data section in a WebAssembly module that the runtime ignores but an app can read.",
+    "long": "A WebAssembly module is a sequence of sections. Custom sections carry a name and arbitrary bytes and the core spec ignores them, so applications use them to carry their own metadata, or in Level 3 a private bytecode program. Nothing in the spec stops two custom sections from sharing a name, and that opens the door to a parser differential when two readers disagree on which one counts."
+  },
+  {
+    "id": "proof-of-work",
+    "term": "Proof-of-work throttle",
+    "group": "Method",
+    "short": "The server makes the client find an input whose hash meets a target, so each request costs some CPU time.",
+    "long": "A proof-of-work gate makes every request cost some computation. The client has to find a nonce that makes a hash of the request start with a set run of zeros. It's a cheap way to rate-limit and slow automation down, because the client needs a short brute-force loop while the server checks the answer with one hash. Tying the nonce to a session ticket means it can't be computed in advance."
+  },
+  {
+    "id": "rsa",
+    "term": "RSA",
+    "group": "Crypto",
+    "short": "A public-key cipher that stays secure only as long as nobody can factor its large modulus into the two secret primes.",
+    "long": "RSA publishes a modulus n = p*q and an exponent e, and the private key depends on knowing the primes p and q. Encryption is c = m^e mod n. Anyone who can factor n can derive the private exponent d and decrypt. With large, random, far-apart primes, factoring is infeasible, so the weak point is usually how the key was generated."
+  },
+  {
+    "id": "fermat-factorisation",
+    "term": "Fermat factorisation",
+    "group": "Crypto",
+    "short": "An old factoring method that splits a modulus almost instantly when its two primes are close together.",
+    "long": "Fermat factorisation writes n as a difference of squares, a^2 - b^2, by stepping a upward from the square root of n. When the two primes are close, b is small and the search ends in very few steps, sometimes zero. It's the standard attack on an RSA key whose primes were generated too near each other. For far-apart random primes it gets nowhere."
+  },
+  {
+    "id": "xor-encoding",
+    "term": "Single-byte XOR",
+    "group": "Crypto",
+    "short": "Every byte is XORed with one fixed key byte, and XORing again with the same byte undoes it.",
+    "long": "XOR with a constant byte scrambles data without really protecting it, since applying the same key byte a second time restores the original. People use it as a light scramble over a buffer. The key is often a memorable or themed value, so it's usually quick to guess, or to recover from a bit of known plaintext."
+  },
+  {
+    "id": "anti-agent-decoys",
+    "term": "Anti-agent decoy flags",
+    "group": "Method",
+    "short": "Fake flags placed where automated or AI solvers look, to catch any tool that grabs the first flag-shaped string.",
+    "long": "Some challenges plant flag-shaped strings where an automated or AI solver is likely to look first, such as manifest fields named for agents, hidden metadata, honeypot admin endpoints, or memos addressed to routing. They catch any solver that matches on the flag format and never checks it against the real mechanism. The defence is to accept a flag only from the intended solve path and to test every candidate before submitting it."
+  }
+]

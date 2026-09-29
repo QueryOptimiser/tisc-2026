@@ -1,0 +1,88 @@
+---
+import Base from './Base.astro';
+import Toc from '../components/Toc.astro';
+import { u, pad, neighbours, conceptById, assistKind } from '../lib/site';
+
+const { frontmatter: fm, headings = [] } = Astro.props;
+const { prev, next } = neighbours(fm.slug);
+const kind = assistKind(fm);
+const assistLabel = fm.assist ?? (kind === 'human' ? 'Human-led · AI-assisted tooling' : 'AI-assisted');
+const techniques = (fm.techniques ?? []).map((id: string) => ({ id, term: conceptById.get(id)?.term ?? id }));
+---
+<Base title={`L${fm.level} ${fm.title}`} description={fm.summary} current="levels" toc progress>
+  <article>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href={u('')}>Overview</a><span aria-hidden="true">/</span><span>Level {fm.level}</span>
+    </nav>
+
+    <header class="level-head">
+      <div class="eyebrow">
+        <span class="level-num">LEVEL {pad(fm.level)}</span>
+        <span class="kicker">{fm.category}</span>
+      </div>
+      <h1>{fm.title}</h1>
+      <p class="lede">{fm.summary}</p>
+
+      <dl class="meta-grid">
+        <div class="meta-cell"><dt>Category</dt><dd>{fm.category}</dd></div>
+        {fm.difficulty && <div class="meta-cell"><dt>Difficulty</dt><dd>{fm.difficulty}</dd></div>}
+        <div class="meta-cell"><dt>How it was solved</dt><dd><span class:list={['chip', kind]}>{assistLabel}</span></dd></div>
+        {fm.time && <div class="meta-cell"><dt>Time spent</dt><dd>{fm.time}</dd></div>}
+      </dl>
+
+      {techniques.length > 0 && (
+        <div class="chip-row" aria-label="Techniques">
+          {techniques.map((t) => <a class="chip" href={u(`concepts/#${t.id}`)}>{t.term}</a>)}
+        </div>
+      )}
+
+      <div class="head-actions">
+        {fm.workings && <a class="btn primary" href={u(fm.workings)}>Read the workings <span aria-hidden="true">→</span></a>}
+        <a class="btn" href="#solution-start">Skip to the solution</a>
+      </div>
+    </header>
+
+    {fm.tldr?.length > 0 && (
+      <section class="tldr" aria-labelledby="tldr-h">
+        <h2 id="tldr-h">The solve in {fm.tldr.length} steps</h2>
+        <ol>{fm.tldr.map((s: string) => <li><span set:html={s.replace(/`([^`]+)`/g, '<code>$1</code>')} /></li>)}</ol>
+        <div class="flag-box" data-flag style="margin-top:16px">
+          <span class="kicker">Flag</span>
+          <code class="flag-value" aria-hidden="true">{fm.flag}</code>
+          <button class="btn" type="button" data-flag-reveal aria-pressed="false">Reveal</button>
+          <button class="btn" type="button" data-copy={fm.flag} hidden>Copy</button>
+        </div>
+      </section>
+    )}
+
+    <div id="solution-start"></div>
+    <Toc headings={headings} variant="inline" />
+    <div class="prose">
+      <slot />
+    </div>
+
+    {fm.learned?.length > 0 && (
+      <section class="learned" aria-labelledby="learned-h">
+        <h2 id="learned-h">What I learned</h2>
+        <ul>{fm.learned.map((s: string) => <li><span set:html={s.replace(/`([^`]+)`/g, '<code>$1</code>')} /></li>)}</ul>
+      </section>
+    )}
+
+    {fm.workings && (
+      <a class="workings-cta" href={u(fm.workings)}>
+        <span>
+          <span class="kicker">Behind the solve</span>
+          <strong>Read the workings: what I tried before this worked</strong>
+        </span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    )}
+
+    <nav class="pager" aria-label="Level navigation">
+      {prev && <a class="prev" href={prev.url} rel="prev" data-prev><small>← Level {prev.level}</small><strong>{prev.title}</strong></a>}
+      {next && <a class="next" href={next.url} rel="next" data-next><small>Level {next.level} →</small><strong>{next.title}</strong></a>}
+    </nav>
+    <p class="kbd-hint">Tip: press <kbd>←</kbd> or <kbd>→</kbd> to move between levels.</p>
+  </article>
+  <Toc slot="toc" headings={headings} />
+</Base>

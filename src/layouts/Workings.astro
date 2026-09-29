@@ -1,0 +1,40 @@
+---
+import Base from './Base.astro';
+import Toc from '../components/Toc.astro';
+import { u, pad, levelBySlug } from '../lib/site';
+
+const { frontmatter: fm, headings = [] } = Astro.props;
+const parent = levelBySlug(fm.parent);
+---
+<Base title={fm.title} description={fm.summary} current="levels" toc progress>
+  <article>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href={u('')}>Overview</a><span aria-hidden="true">/</span>
+      {parent && <><a href={parent.url}>Level {parent.level}: {parent.title}</a><span aria-hidden="true">/</span></>}
+      <span>Workings</span>
+    </nav>
+    <header class="level-head">
+      <div class="eyebrow">
+        <span class="level-num">LEVEL {pad(fm.level)} · WORKINGS</span>
+      </div>
+      <h1>{fm.title}</h1>
+      <p class="lede">{fm.summary}</p>
+      {parent && (
+        <div class="head-actions">
+          <a class="btn" href={parent.url}><span aria-hidden="true">←</span> Back to the clean solution</a>
+        </div>
+      )}
+    </header>
+    <div style="height:28px"></div>
+    <Toc headings={headings} variant="inline" />
+    <div class="prose">
+      <slot />
+    </div>
+    {parent && (
+      <nav class="pager" aria-label="Workings navigation">
+        <a class="prev" href={parent.url} data-prev><small>← Back to the level</small><strong>{parent.title}</strong></a>
+      </nav>
+    )}
+  </article>
+  <Toc slot="toc" headings={headings} />
+</Base>

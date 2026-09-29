@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import { concepts, GROUP_ORDER, levelsUsing, u, pad } from '../lib/site';
+
+const slug = (g: string) => 'group-' + g.toLowerCase().replace(/[^a-z]+/g, '-');
+const extra = [...new Set(concepts.map((c) => c.group))].filter((g) => !GROUP_ORDER.includes(g));
+const groups = [...GROUP_ORDER, ...extra]
+  .map((g) => ({ g, items: concepts.filter((c) => c.group === g) }))
+  .filter((x) => x.items.length);
+---
+<Base title="Concepts" description="Plain-English explanations of every technique used across the TISC 2026 writeups." current="concepts">
+  <header class="level-head">
+    <div class="eyebrow"><span class="level-num">GLOSSARY</span></div>
+    <h1>Concepts</h1>
+    <p class="lede">Every technique on this site, explained for someone technical but new to CTFs. Each entry links to the levels where I used it.</p>
+  </header>
+
+  <div class="filter-bar">
+    <label for="concept-filter" class="visually-hidden">Filter concepts</label>
+    <input id="concept-filter" type="search" placeholder="Filter concepts, e.g. prefill, RSA, race" autocomplete="off" />
+    <kbd aria-hidden="true">/</kbd>
+    <span id="concept-count" class="count" aria-live="polite">{concepts.length} concepts</span>
+  </div>
+
+  <nav class="group-jump chip-row" aria-label="Concept groups">
+    {groups.map((x) => <a class="chip" href={`#${slug(x.g)}`}>{x.g}</a>)}
+  </nav>
+
+  {groups.map((x) => (
+    <section class="concept-group" id={slug(x.g)} data-concept-group>
+      <h2>{x.g}</h2>
+      <div class="concept-list">
+        {x.items.map((c) => {
+          const used = levelsUsing(c.id);
+          return (
+            <article class="concept" id={c.id} data-concept-item data-search={`${c.term} ${c.short} ${c.long} ${c.group}`.toLowerCase()}>
+              <h3><a href={`#${c.id}`}>{c.term}</a></h3>
+              <p class="concept-short">{c.short}</p>
+              <p class="concept-long">{c.long}</p>
+              {used.length > 0 && (
+                <p class="used-in">
+                  <span class="kicker">Used in</span>
+                  {used.map((l) => <a class="chip" href={l.url}>L{pad(l.level)} {l.title}</a>)}
+                </p>
+              )}
+            </article>
+          );
+        })}
+      </div>
+    </section>
+  ))}
+</Base>
+
+<style>
+  .filter-bar {
+    position: sticky; top: calc(var(--header-h) + env(safe-area-inset-top, 0px)); z-index: 5;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    margin: 28px 0 14px; padding: 10px 0; background: var(--bg);
+  }
+  .filter-bar input {
+    flex: 1 1 260px; min-width: 0;
+    font: 500 1rem/1.2 var(--body); color: var(--ink);
+    padding: 12px 14px; border-radius: var(--radius);
+    border: 1px solid var(--rule); background: var(--surface);
+  }
+  .filter-bar input:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .count { font: 600 0.8rem/1 var(--mono); color: var(--ink-3); }
+  .group-jump { margin-bottom: 8px; }
+  .concept-group { margin-top: 40px; max-width: 900px; }
+  .concept-group h2 { font-size: var(--step-2); margin: 0 0 14px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+  .concept-list { display: grid; gap: 10px; }
+  .concept {
+    padding: 18px 20px; border: 1px solid var(--rule); border-radius: var(--radius); background: var(--surface);
+    scroll-margin-top: calc(var(--header-h) + 80px);
+  }
+  .concept h3 { font-size: var(--step-1); margin: 0 0 6px; }
+  .concept h3 a { color: var(--ink); text-decoration: none; }
+  .concept h3 a:hover { color: var(--accent); }
+  .concept-short { margin: 0 0 8px; font-weight: 700; color: var(--ink); }
+  .concept-long { margin: 0; color: var(--ink-2); max-width: 70ch; }
+  .used-in { margin: 12px 0 0; display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+  .used-in .kicker { margin-right: 4px; }
+  .concept:target, .concept.flash { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+</style>

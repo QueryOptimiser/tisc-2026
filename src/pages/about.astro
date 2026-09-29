@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import { levels, pad, assistKind } from '../lib/site';
+---
+<Base title="About" description="Who wrote these writeups, and exactly how AI was used." current="about">
+  <header class="level-head">
+    <div class="eyebrow"><span class="level-num">ABOUT</span></div>
+    <h1>About this casebook, and how I used AI</h1>
+    <p class="lede">I'm Elodie Ng, a psychology student. I entered TISC 2026 to see how far curiosity, research methods and decent tools could get someone who doesn't code for a living.</p>
+  </header>
+
+  <div class="prose" style="margin-top:32px">
+    <h2 id="who">Who I am</h2>
+    <p>
+      I study psychology, and programming is not my strength. Several of these levels needed things I had never
+      touched before, like reversing a Windows binary, decrypting Nintendo DS save data and racing a network service.
+      What I did have was training in research methods. I know to run controls, to worry about reliability, and not to
+      trust a result until the instrument has been checked. On Level 4 that mattered more than code.
+    </p>
+    <p class="profile-links">
+      <a class="btn" href="https://www.linkedin.com/in/elodie-ng/" rel="me noopener" target="_blank">
+        <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9.75h4v11H3zM9.5 9.75h3.8v1.5h.06c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.77 2.65 4.77 6.1v5.46h-4v-4.84c0-1.15-.02-2.64-1.61-2.64-1.61 0-1.86 1.26-1.86 2.56v4.92h-4z" /></svg>
+        Say hi on LinkedIn
+      </a>
+    </p>
+
+    <h2 id="ai">How I used AI</h2>
+    <p>
+      I used AI throughout, and I'd rather say so plainly than let the polish of these pages suggest otherwise.
+      Claude (in Claude Code) wrote and ran most of the scripts with me, and both Claude and ChatGPT helped me get up to speed on
+      unfamiliar formats. The heavy model experiments ran on paid Google Colab GPUs, because my laptop runs models on its CPU at about two tokens a second.
+    </p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Level</th><th>Challenge</th><th>Split</th></tr></thead>
+        <tbody>
+          {levels.map((l) => (
+            <tr>
+              <td><a href={l.url}>L{pad(l.level)}</a></td>
+              <td>{l.title}</td>
+              <td><span class:list={['chip', assistKind(l)]}>{l.assist ?? (assistKind(l) === 'human' ? 'Human-led · AI-assisted tooling' : 'AI-assisted')}</span></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+    <p>
+      <strong>Levels 1 to 3</strong> were AI-assisted. The AI did much of the analysis, and I steered it, checked
+      each step and wrote them up.
+    </p>
+    <p>
+      <strong>Levels 4 to 7</strong> needed human calls the AI kept missing. On ZyGPT, the AI spent days treating the
+      model's own description of its hidden payload as a trap, and it produced confident arguments that the flag
+      wasn't there. The solve came when I read that description as an honest spec and ran the search myself. On
+      Levels 5 and 6 I leaned on Claude and ChatGPT to learn the new ground quickly, and then decided what mattered. On Level 7 I
+      had to stop the five-minute instance timer from rushing me, so I built the exploit locally before running it live.
+    </p>
+
+    <h2 id="misdirection">A CTF full of misdirection</h2>
+    <p>
+      TISC 2026 planted decoys everywhere. There were fake flags in binaries, strings written to tell an analyst (or
+      an AI) to stop looking, a Ditto nicknamed "NOT ME!", and a chatbot that made up a new plausible flag every time
+      you asked. By the end my rule was that nothing counts until the challenge itself confirms it, through a server
+      response or a cryptographic check.
+    </p>
+  </div>
+</Base>

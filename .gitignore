@@ -1,0 +1,10 @@
+node_modules/
+dist/
+.astro/
+.DS_Store
+Thumbs.db
+*.log
+
+# local working notes, not part of the site
+CONTENT_GUIDE.md
+scripts/
