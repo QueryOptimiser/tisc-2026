@@ -1,10 +1,10 @@
 # TISC 2026 Casebook
 
-Writeups for Levels 1–7 of [TISC 2026](https://www.csit.gov.sg/) (The InfoSecurity Challenge), by **Elodie Ng**.
+Writeups for Levels 1–7 of [TISC 2026](https://www.csit.gov.sg/events/tisc/tisc-2026) (The InfoSecurity Challenge), by **Elodie Ng**.
 
 I'm a psychology student, and programming isn't my strength. This site covers each level's solution and,
 for Level 4 (ZyGPT) and Level 7 (Omnitrix), the workings: everything I tried before the solve landed.
-I used AI heavily, and the site says how, level by level.
+I used AI in this CTF, and the site says how, level by level.
 
 **Read it here:** https://queryoptimiser.github.io/tisc-2026/
 
@@ -20,7 +20,7 @@ I used AI heavily, and the site says how, level by level.
 | 6 | Provenance | Reverse engineering |
 | 7 | Omnitrix | Pwn |
 
-My own solve scripts are in `public/code/`. Challenge files are not redistributed.
+My own solve scripts are in `public/code/`.
 
 ## Running it locally
 
