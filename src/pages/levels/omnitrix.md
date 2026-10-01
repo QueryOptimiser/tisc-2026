@@ -22,7 +22,7 @@ learned:
 workings: "/levels/omnitrix/workings/"
 ---
 
-This was the last and hardest level of the event, and my first proper binary-exploitation chain from end to end. Programming has never been my strong suit, so getting here meant learning a lot of pwn along the way, and I wrote the beginner's account up separately. The short version is below, and the long, teach-it-to-yourself version is in [the workings](/levels/omnitrix/workings/).
+This was the last and hardest level I have completed, and my first proper binary-exploitation chain from end to end. Programming has never been my strong suit, so getting here meant learning a lot of pwn along the way, and I wrote the beginner's account up separately. The short version is below, and the long, teach-it-to-yourself version is in [the workings](/levels/omnitrix/workings/).
 
 ## The challenge
 
