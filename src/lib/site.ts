@@ -73,3 +73,22 @@ export function assistKind(l: Pick<LevelMeta, 'assist' | 'level'>): 'human' | 'a
   if (l.assist) return /human/i.test(l.assist) ? 'human' : 'ai';
   return l.level >= 4 ? 'human' : 'ai';
 }
+
+export interface PostmortemMeta {
+  title: string;
+  challenge: string;
+  category?: string;
+  status?: string;
+  summary: string;
+  url: string;
+  slug: string;
+}
+
+const pmModules = import.meta.glob<{ frontmatter: Omit<PostmortemMeta, 'url' | 'slug'> }>('../pages/postmortems/*.md', {
+  eager: true,
+});
+
+export const postmortems: PostmortemMeta[] = Object.entries(pmModules).map(([path, m]) => {
+  const slug = path.split('/').pop()!.replace(/\.md$/, '');
+  return { ...m.frontmatter, slug, url: u(`postmortems/${slug}/`) };
+});

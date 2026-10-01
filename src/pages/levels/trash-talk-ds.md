@@ -4,7 +4,7 @@ level: 5
 title: "Trash Talk"
 slug: trash-talk-ds
 category: "Forensics · RE"
-difficulty: "Medium"
+difficulty: "Hard"
 assist: "Human-led · AI-assisted tooling"
 flag: "TISC{p0lyg0n4l_p1d_ch41n_4cr0ss_g3ns}"
 summary: "A re-implemented Nintendo DS Wi-Fi trading service, gated on a Host header, hiding a flag across three stages in Pokémon save-data trash bytes."

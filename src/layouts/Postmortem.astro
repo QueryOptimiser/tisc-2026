@@ -1,0 +1,35 @@
+---
+import Base from './Base.astro';
+import Toc from '../components/Toc.astro';
+import { u } from '../lib/site';
+
+const { frontmatter: fm, headings = [] } = Astro.props;
+---
+<Base title={fm.title} description={fm.summary} current="levels" toc progress>
+  <article>
+    <nav class="crumbs" aria-label="Breadcrumb">
+      <a href={u('')}>Overview</a><span aria-hidden="true">/</span><span>Post-mortem</span>
+    </nav>
+    <header class="level-head">
+      <div class="eyebrow">
+        <span class="level-num">POST-MORTEM</span>
+        {fm.category && <span class="kicker">{fm.category}</span>}
+      </div>
+      <h1>{fm.title}</h1>
+      <p class="lede">{fm.summary}</p>
+      <dl class="meta-grid">
+        <div class="meta-cell"><dt>Challenge</dt><dd>{fm.challenge}</dd></div>
+        {fm.status && <div class="meta-cell"><dt>Outcome</dt><dd><span class="chip accent">{fm.status}</span></dd></div>}
+      </dl>
+    </header>
+    <div style="height:12px"></div>
+    <Toc headings={headings} variant="inline" />
+    <div class="prose">
+      <slot />
+    </div>
+    <nav class="pager" aria-label="Back">
+      <a class="prev" href={u('')} data-prev><small>← Back</small><strong>Overview</strong></a>
+    </nav>
+  </article>
+  <Toc slot="toc" headings={headings} />
+</Base>

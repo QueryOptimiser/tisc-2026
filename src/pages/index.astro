@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { levels, concepts, u, pad, assistKind, GROUP_ORDER } from '../lib/site';
+import { levels, postmortems, concepts, u, pad, assistKind, GROUP_ORDER } from '../lib/site';
 
 const zy = levels.find((l) => l.slug === 'zygpt');
 const groups = GROUP_ORDER.map((g) => ({ g, n: concepts.filter((c) => c.group === g).length })).filter((x) => x.n > 0);
@@ -93,6 +93,20 @@ const lessons = [
         ))}
       </ol>
     </section>
+
+    {postmortems.length > 0 && (
+      <section class="home-section" aria-labelledby="pm-h">
+        <div class="section-head"><h2 id="pm-h">The one that got away</h2></div>
+        {postmortems.map((p) => (
+          <a class="pm-card" href={p.url}>
+            <span class="kicker">Post-mortem · {p.challenge}</span>
+            <strong>{p.title}</strong>
+            <span class="pm-sum">{p.summary}</span>
+            <span class="pm-go">Read the post-mortem <span aria-hidden="true">→</span></span>
+          </a>
+        ))}
+      </section>
+    )}
 
     <section class="home-section split" aria-labelledby="ai-h">
       <div>
@@ -210,6 +224,14 @@ const lessons = [
     .row-num { font-size: var(--step-1); }
   }
 
+  .pm-card {
+    display: grid; gap: 8px; padding: 22px 24px; border-radius: 16px; text-decoration: none; color: var(--ink);
+    border: 1px dashed var(--accent); background: var(--accent-soft);
+  }
+  .pm-card:hover { background: var(--surface); }
+  .pm-card strong { font: 800 var(--step-2)/1.15 var(--display); }
+  .pm-sum { color: var(--ink-2); max-width: 70ch; }
+  .pm-go { font-weight: 700; color: var(--accent); }
   .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 32px; align-items: start; }
   .split-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
   .split-card { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 20px; min-width: 0; }

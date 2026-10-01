@@ -1,0 +1,17 @@
+[
+  { "id": "jwt-algorithm-confusion", "term": "JWT algorithm confusion", "group": "Web",
+    "short": "Signing a token with the server's published RSA public key as an HMAC secret, when the server will verify either way.",
+    "long": "A server that verifies RS256 with a public key but also accepts HS256 can be fooled. You take the public key it publishes, serialise it, and use those exact bytes as the shared secret for an HS256 signature. The server reuses the same key material to check an HMAC, so a token you forged verifies and you can set your own claims, such as a role." },
+
+  { "id": "argon2id", "term": "Argon2id", "group": "Crypto",
+    "short": "A memory-hard password hash that is slow and RAM-heavy by design, so each guess costs real time and memory.",
+    "long": "Argon2id derives a key from a password, a salt and cost parameters for time, memory and parallelism. Here it used 256 MiB and ten passes, which made each candidate take about a second. That's deliberate, because it stops you grinding through millions of coordinates, so the search space has to be small before you start." },
+
+  { "id": "corridor-sweep", "term": "Corridor sweep", "group": "Method",
+    "short": "Testing every grid point within a fixed distance of a line, instead of scoring a few named points against it.",
+    "long": "When a clue points at a path between two places, the answer can sit anywhere along that path, not only at the vertices your routing tool happened to return. A corridor sweep walks a band around the line at the grid's own step and tries each point. Scoring a named point against the line only tells you how far that point is from the line, which answers a different question." },
+
+  { "id": "hint-granularity", "term": "Let the hint set the grid", "group": "Method",
+    "short": "Reading the precision implied by a hint before deciding how finely to search and whether a search is feasible.",
+    "long": "A radius or tolerance in a clue tells you the step size the setter expects. A 10 metre radius is roughly a 0.0001 degree step, which is four decimal places. Assuming six decimals turns a small grid into millions of points and makes a feasible search look impossible. Checking the real precision first keeps you from calling the right search infeasible." }
+]

@@ -1,5 +1,5 @@
 ---
-import { levels, u, pad, assistKind } from '../lib/site';
+import { levels, postmortems, u, pad, assistKind } from '../lib/site';
 const { current = '' } = Astro.props as { current?: string };
 const norm = (p: string) => p.replace(/\/?$/, '/');
 const here = norm(current);
@@ -35,6 +35,22 @@ const is = (href: string) => (norm(href) === here ? 'page' : undefined);
       <span><span class="side-dot human" aria-hidden="true"></span>Human-led, AI as tooling</span>
     </div>
   </div>
+
+  {postmortems.length > 0 && (
+    <div class="side-group">
+      <span class="kicker">Post-mortems</span>
+      <ul class="side-list">
+        {postmortems.map((p) => (
+          <li>
+            <a class="side-link" href={p.url} aria-current={is(p.url)}>
+              <span class="side-num">PM</span>
+              <span>{p.title}<span class="side-sub">{p.challenge}</span></span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
 
   <div class="side-group">
     <span class="kicker">Reference</span>
