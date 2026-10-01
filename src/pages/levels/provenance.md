@@ -3,7 +3,7 @@ layout: ../../layouts/Level.astro
 level: 6
 title: "Provenance"
 slug: provenance
-category: "Reverse engineering"
+category: "Misc · RE"
 difficulty: "Hard"
 assist: "Human-led · AI-assisted tooling"
 flag: "TISC{r1ch_h34d3r_t0ld_a_l1e_ab0ut_1ts_b1rth}"

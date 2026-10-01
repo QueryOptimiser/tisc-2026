@@ -3,7 +3,7 @@ layout: ../../layouts/Level.astro
 level: 1
 title: "REDACTED"
 slug: redacted
-category: "Forensics"
+category: "OSINT"
 difficulty: "Easy"
 assist: "AI-assisted"
 flag: "TISC{BRO!RedactPDFsProperlyLah!!!}"

@@ -10,14 +10,14 @@ I used AI in this CTF, and the site says how, level by level.
 
 ## What's inside
 
-| Level | Challenge | Category |
+| Level | Challenge | Category (official) |
 | :---: | --- | --- |
-| 1 | REDACTED | Forensics |
-| 2 | My Printer has a Secret | Forensics / OSINT |
-| 3 | Lion City Layover | Web / reversing / crypto |
-| 4 | ZyGPT | Crypto / AI |
-| 5 | Trash Talk DS | Misc |
-| 6 | Provenance | Reverse engineering |
+| 1 | REDACTED | OSINT |
+| 2 | My Printer has a Secret | Misc, OSINT |
+| 3 | Lion City Layover | RE, Web |
+| 4 | ZyGPT | LLM, Steganography, Forensics |
+| 5 | Trash Talk DS | Forensics, RE |
+| 6 | Provenance | Misc, RE |
 | 7 | Omnitrix | Pwn |
 
 My own solve scripts are in `public/code/`.

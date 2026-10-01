@@ -3,7 +3,7 @@ layout: ../../layouts/Level.astro
 level: 5
 title: "Trash Talk DS"
 slug: trash-talk-ds
-category: "Misc · Protocol RE"
+category: "Forensics · RE"
 difficulty: "Medium"
 assist: "Human-led · AI-assisted tooling"
 flag: "TISC{p0lyg0n4l_p1d_ch41n_4cr0ss_g3ns}"

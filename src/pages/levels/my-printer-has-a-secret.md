@@ -3,7 +3,7 @@ layout: ../../layouts/Level.astro
 level: 2
 title: "My Printer has a Secret"
 slug: my-printer-has-a-secret
-category: "Forensics · OSINT"
+category: "Misc · OSINT"
 difficulty: "Medium"
 assist: "AI-assisted"
 flag: "TISC{abn2263123_grey_MS-18E}"

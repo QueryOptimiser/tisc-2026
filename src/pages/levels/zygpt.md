@@ -3,7 +3,7 @@ layout: ../../layouts/Level.astro
 level: 4
 title: "ZyGPT"
 slug: zygpt
-category: "Crypto · AI"
+category: "LLM · Steganography · Forensics"
 difficulty: "Hard"
 assist: "Human-led · AI-assisted tooling"
 flag: "TISC{h1d3_1t_d33p_th3_w31ghts_d0nt_l13}"

@@ -3,7 +3,7 @@ layout: ../../layouts/Level.astro
 level: 3
 title: "Lion City Layover"
 slug: lion-city-layover
-category: "Misc · Web · RE · Crypto"
+category: "RE · Web"
 difficulty: "Hard"
 assist: "AI-assisted"
 flag: "TISC{w3lc0m3_70_51ng4p0r3_l4h_61}"
