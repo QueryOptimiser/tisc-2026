@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/Level.astro
 level: 5
-title: "Trash Talk DS"
+title: "Trash Talk"
 slug: trash-talk-ds
 category: "Forensics · RE"
 difficulty: "Medium"

@@ -16,7 +16,7 @@ I used AI in this CTF, and the site says how, level by level.
 | 2 | My Printer has a Secret | Misc, OSINT |
 | 3 | Lion City Layover | RE, Web |
 | 4 | ZyGPT | LLM, Steganography, Forensics |
-| 5 | Trash Talk DS | Forensics, RE |
+| 5 | Trash Talk | Forensics, RE |
 | 6 | Provenance | Misc, RE |
 | 7 | Omnitrix | Pwn |
 
