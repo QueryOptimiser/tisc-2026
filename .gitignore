@@ -7,4 +7,4 @@ Thumbs.db
 
 # local working notes, not part of the site
 CONTENT_GUIDE.md
-scripts/
+/scripts/
