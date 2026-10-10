@@ -1,6 +1,6 @@
 # TISC 2026 Casebook
 
-Writeups for Levels 1–7 of [TISC 2026](https://www.csit.gov.sg/events/tisc/tisc-2026) (The InfoSecurity Challenge), by **Elodie Ng**.
+Writeups for Levels 1–7 of [TISC 2026](https://www.csit.gov.sg/events/tisc/tisc-2026) (The InfoSecurity Challenge) CTF, by **Elodie Ng**.
 
 I'm a psychology student, and programming isn't my strength. This site covers each level's solution and,
 for Level 4 (ZyGPT) and Level 7 (Omnitrix), the workings: everything I tried before the solve landed.
