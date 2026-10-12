@@ -14,6 +14,12 @@ tldr:
   - "Dump the secret buffer 32 bytes at a time (with a proof-of-work per request) and XOR by 0x37 to reveal an RSA passport."
   - "The primes are close, so Fermat factorisation recovers them instantly; decrypt to the boarding pass and exchange it at /claim for the flag."
 techniques: ["parser-differential", "wasm-custom-section", "png-trailing-data", "proof-of-work", "rsa", "fermat-factorisation", "xor-encoding", "anti-agent-decoys"]
+cwe:
+  - { id: 436, name: "Interpretation Conflict" }
+  - { id: 326, name: "Inadequate Encryption Strength" }
+seenIn:
+  - { label: "CVE-2013-4787, Android \"Master Key\" duplicate APK entries", url: "https://www.cve.org/CVERecord?id=CVE-2013-4787" }
+  - { label: "CVE-2022-26320, Fermat-factorable RSA keys", url: "https://www.cve.org/CVERecord?id=CVE-2022-26320" }
 learned:
   - "I stopped trying to force the blocked instruction through and asked whether every component was reading the same bytes I thought it was. They weren't. Request-smuggling research starts from the same question."
   - "Take weak-key hints seriously. 'Neighbours on the same landing' meant the RSA primes were close, and Fermat factorisation broke the key in milliseconds where brute force would never have finished."

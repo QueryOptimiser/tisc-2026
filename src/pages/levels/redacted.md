@@ -14,6 +14,8 @@ tldr:
   - "Every blacked-out section is still there, and section 6 holds a base64 string."
   - "Decode it to get the flag."
 techniques: ["pdf-redaction-failure", "base64-encoding"]
+cwe:
+  - { id: 212, name: "Improper Removal of Sensitive Information Before Storage or Transfer" }
 learned:
   - "Drawing a black box over text in a PDF only covers it. The words stay in the text layer, and one extraction reads them back."
   - "It helped to ask what the file contains instead of what the page shows. After that the puzzle came down to three lines of code."

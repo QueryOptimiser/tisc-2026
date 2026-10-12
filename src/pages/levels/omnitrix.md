@@ -14,6 +14,10 @@ tldr:
   - "With the mask elevated, upload a clean ELF probe.so via the codon.stream.inject transform."
   - "Trigger it with a replay strand; the probe execs the flag helper, echoes its token, and writes the flag back."
 techniques: ["toctou-race", "capability-lease", "so-injection", "challenge-response", "decoy-discipline"]
+cwe:
+  - { id: 367, name: "Time-of-check Time-of-use (TOCTOU) Race Condition" }
+  - { id: 613, name: "Insufficient Session Expiration" }
+  - { id: 434, name: "Unrestricted Upload of File with Dangerous Type" }
 learned:
   - "The hardest part was accepting that the race wasn't a one-shot logic bug but a timing problem I had to tune against a live server, which is how a lot of real race-condition exploits behave."
   - "The uploaded code didn't need to smuggle anything out. It only had to become, for a moment, a legitimate-looking process inside the target that could talk to the flag helper on its own terms."

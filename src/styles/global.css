@@ -300,6 +300,10 @@ a.chip:hover { border-color: var(--ink-3); color: var(--ink); }
 .chip.ai { background: var(--ai-soft); color: var(--ai); }
 .chip.accent { background: var(--accent-soft); color: var(--accent); }
 .chip-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip-row.weakness { align-items: center; margin-top: 8px; }
+.chip-row.weakness .chip { white-space: normal; }
+.seen-in { margin: 8px 0 0; font-size: 0.9rem; }
+.seen-in .kicker { margin-right: 8px; }
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 10px 16px; border-radius: 9px;

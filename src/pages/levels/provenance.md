@@ -14,6 +14,10 @@ tldr:
   - "Repair both records to a consistent VS2022 toolset (build 35207 / linker 14.44), recomputing the Rich header checksum."
   - "POST the repaired binary; only 101 bytes change and the server returns the real flag."
 techniques: ["rich-header", "linker-version", "decoy-discipline"]
+cwe:
+  - { id: 345, name: "Insufficient Verification of Data Authenticity" }
+seenIn:
+  - { label: "Olympic Destroyer's forged Rich header (2018)", url: "https://securelist.com/the-devils-in-the-rich-header/84348/" }
 learned:
   - "The move that mattered was noticing the two records had been forged to agree with each other, so fixing one still left a consistent-looking lie. It turned the task from patching a value into making two witnesses tell the same true story."
   - "I checked my understanding of the checksum by recomputing the file's existing, known-good value before trusting my code to change it. Cheap self-checks catch my mistakes before a failed submission does."

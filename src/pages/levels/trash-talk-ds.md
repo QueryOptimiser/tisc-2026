@@ -14,6 +14,11 @@ tldr:
   - "Recover three target PIDs from Gen 5 Porygon2 trash (XOR K), ignoring the Ditto decoys."
   - "Trade a hand-tuned male Buizel for each, and XOR each Porygon-Z's trash against its own PID to get the flag."
 techniques: ["host-header-gating", "trash-bytes", "lcg-keystream", "challenge-response", "decoy-discipline"]
+cwe:
+  - { id: 226, name: "Sensitive Information in Resource Not Removed Before Reuse" }
+  - { id: 656, name: "Reliance on Security Through Obscurity" }
+seenIn:
+  - { label: "CVE-2023-21036, aCropalypse leftover image data", url: "https://www.cve.org/CVERecord?id=CVE-2023-21036" }
 learned:
   - "I stopped trusting what a system says about itself. The decoys and the trade check came down to the same habit of checking what the data actually is rather than the label it wears."
   - "Community documentation for a dead protocol is a starting point, not gospel. Cross-checking two independent write-ups (<a href='https://github.com/mm201/pkmn-classic-framework/wiki/gamestats2-server'>mm201's pkmn-classic-framework wiki</a> and the <a href='https://web.archive.org/web/20240811211856/http://www.furlocks-forest.net/wiki/?page=Pokemon_GTS_Protocol'>Furlock's Forest GTS protocol notes</a>, archived) caught details one source alone would have hidden, and the instance-specific values still had to come from live traffic."

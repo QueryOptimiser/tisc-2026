@@ -14,6 +14,8 @@ tldr:
   - "Crib-drag `https://` against the triangle stream to recover the colour-to-value table and the archive URL."
   - "Follow a deleted auction listing through public data to the seller's Flickr, pet photo and shop cover."
 techniques: ["machine-identification-code", "crib-dragging", "passive-osint"]
+cwe:
+  - { id: 1230, name: "Exposure of Sensitive Information Through Metadata" }
 learned:
   - "I guessed the obvious encoding twice and was wrong both times. Real tracking dots use presence/absence, and the colour tag looked like something statistics would crack. What worked was throwing out decodes that looked plausible but meant nothing and going back to the raw pixels."
   - "When most of a payload is random filler, entropy, character frequency and the ASCII high-bit test all say it isn't text. A known-plaintext crib still finds the message."

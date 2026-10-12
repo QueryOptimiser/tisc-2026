@@ -36,6 +36,23 @@ const techniques = (fm.techniques ?? []).map((id: string) => ({ id, term: concep
         </div>
       )}
 
+      {fm.cwe?.length > 0 && (
+        <div class="chip-row weakness" aria-label="Weakness classes (CWE)">
+          <span class="kicker">CWE</span>
+          {fm.cwe.map((c: { id: number; name: string }) => (
+            <a class="chip accent" href={`https://cwe.mitre.org/data/definitions/${c.id}.html`} target="_blank" rel="noopener">CWE-{c.id} {c.name}</a>
+          ))}
+        </div>
+      )}
+      {fm.seenIn?.length > 0 && (
+        <p class="seen-in">
+          <span class="kicker">Seen in the wild</span>
+          {fm.seenIn.map((s: { label: string; url: string }, i: number) => (
+            <>{i > 0 && <span aria-hidden="true"> · </span>}<a href={s.url} target="_blank" rel="noopener">{s.label}</a></>
+          ))}
+        </p>
+      )}
+
       <div class="head-actions">
         {fm.workings && <a class="btn primary" href={u(fm.workings)}>Read the workings <span aria-hidden="true">→</span></a>}
         <a class="btn" href="#solution-start">Skip to the solution</a>

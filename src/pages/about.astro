@@ -56,6 +56,19 @@ import { levels, pad, assistKind } from '../lib/site';
       had to stop the five-minute instance timer from rushing me, so I built the exploit locally before running it live.
     </p>
 
+    <h2 id="cwe">Naming the weaknesses</h2>
+    <p>
+      Since TISC I've started a personal project, Corvus, where I look for real bugs in open-source code. Real bug
+      reports are filed under a CWE, the shared name for a class of weakness. It would be a shame not to think about
+      the CWE behind each of these levels too, so every level page now lists the ones it fits and, where there is one,
+      a real-world case of the same kind of bug.
+    </p>
+    <p>
+      None of these are CVEs. The challenges were built with their flaws on purpose, so there is nothing to file.
+      Levels 2 and 6 only fit their CWE loosely. ZyGPT hides an encrypted payload in model weights, which isn't a
+      software weakness at all, so it has no CWE.
+    </p>
+
     <h2 id="misdirection">A CTF full of misdirection</h2>
     <p>
       TISC 2026 planted decoys everywhere. There were fake flags in binaries, strings written to tell an analyst (or
